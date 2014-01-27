@@ -32,7 +32,7 @@ This could be a turorial for *newbie's* like *me* to start with Chef Installatio
 Install Chef Server (Open Source)
 -----------
 
-Chef Instllation is as easy it can get, download the rpm or deb package or just follow typical method of bash install by following - http://www.getchef.com/chef/install/.
+Chef Instllation is as easy it can get, download the rpm or deb package or just follow typical method of bash install by following [chef install].
 
 **Customize Chef Server Details Before Setup**
 
@@ -49,7 +49,7 @@ If you are running on amazon platform, you might be prune to runlist error. It m
 # diff -u /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.old /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb
 
 --- /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.orig    2014-01-26 20:00:26.123165937 +0000
-+++ /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.new	2014-01-26 20:03:22.030175179 +0000
++++ /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.new    2014-01-26 20:03:22.030175179 +0000
 @@ -29,6 +29,8 @@
    end
  when "xenserver"
@@ -62,12 +62,12 @@ If you are running on amazon platform, you might be prune to runlist error. It m
 ```
 Browse https://chef_server_dns and change the default admin password. Create admin client / user for different users if required.
 
-For more information read http://docs.opscode.com/config_rb_chef_server.html.
+For more information read [chef server config].
 
 Install Chef Client
 --------------
 
-Just like server, download the rpm or deb package or just follow typical method of bash install by following - http://www.getchef.com/chef/install/.
+Just like server, download the rpm or deb package or just follow typical method of bash install by following - [chef install].
 
 Once Chef client package is installed, need to create some files and folders to bootstrap the chef client.
 
@@ -130,7 +130,7 @@ Ohai::Config[:plugin_path] << '/etc/chef/ohai/plugins'
 
 ```
 
-For more information read http://docs.opscode.com/config_rb_client.html.
+For more information read [client config].
 
 **Node Custom Attributes or run_list**
 
@@ -167,9 +167,9 @@ If you are running on Amazon platform, ec2 hint is to be created to load Ohai ec
 echo '{}' > /etc/chef/ohai/hints/ec2.json
 ```
 
-For more info on Ohai "http://docs.opscode.com/ohai.html".
+For more info on [ohai].
 
-For Ohai plugins  "http://docs.opscode.com/ohai_custom.html".
+For Ohai plugins [ohai custom].
 
 
 
@@ -177,11 +177,11 @@ Setup Admin User and Knife (Chef Workstation)
 ---
 Knife is a Chef Management Utilit, it has set of api calls and different plugins to manage Chef Server roles, environments, data bags, cookbooks, run list, node and client etc. Basically knife is a single utility proven to be enough to manage the Chef sever. There are some other powerful utilities too like Berkshelf to do the same thing, choice is yours!
 
-To setup a knife client, create your admin client or user key via Chef Console by following steps in "http://docs.opscode.com/chef/manage_server_open_source.html".
+To setup a knife client, create your admin client or user key via Chef Console by following steps in [manage auth].
 
 Download the private key, this key is required to setup knife client or  Chef Workstation.
 
-For more information on Knife "http://docs.opscode.com/knife.html".
+For more information on Knife [knife].
 
 **Knife Setup**
 
@@ -212,7 +212,7 @@ cookbook_license         'apachev2'
 cookbook_email           'foo@foo.com'
 ```
 
-For more knife.rb options "http://docs.opscode.com/config_rb_knife.html".
+For more knife.rb options [knife config].
 
 **Test knife client**
 
@@ -238,7 +238,7 @@ Environment concept in Chef is very simple:
 - chef default environment is _default. Unless an environment is declared in /etc/chef/client.rb or in Chef Console for a node, node by default is configured with _default environment.
 - you can create 'n' numbers of environments
 
-For more information on environment read out "http://docs.opscode.com/essentials_environments.html".
+For more information on environment read out [essentials environments].
 
 If you have multiple environments likfe production, stage or qa, it is always better to bootstrap the node with the respective environment instead of _default environment.
 
@@ -316,7 +316,7 @@ Chef Role is a place to store the attributes for a specific application/role and
 - it stores attributes required for recipes
 - you can have difference run_list for different environment, run_list is default run_list for _default environment.
 
-For more information on role "http://docs.opscode.com/essentials_roles.html".
+For more information on [essentials roles].
 
 ```sh
 # cat jump.json
@@ -385,7 +385,7 @@ Chef Data Bags are JSON Data Stroes globally available for cookbooks. Data Bag i
 
 Data bag can be created as a chef dsl .rb file or a .json file.
 
-For more information read out "http://docs.opscode.com/essentials_data_bags.html".
+For more information read out [essentials data bags].
 
 
 Chef Cookbooks / Recipes
@@ -442,16 +442,14 @@ Apache v2.0
 
 **Open Source, Hell Yeah!**
 
-[john gruber]:http://daringfireball.net/
-[@thomasfuchs]:http://twitter.com/thomasfuchs
-[1]:http://daringfireball.net/projects/markdown/
-[marked]:https://github.com/chjj/marked
-[Ace Editor]:http://ace.ajax.org
-[node.js]:http://nodejs.org
-[Twitter Bootstrap]:http://twitter.github.com/bootstrap/
-[keymaster.js]:https://github.com/madrobby/keymaster
-[jQuery]:http://jquery.com
-[@tjholowaychuk]:http://twitter.com/tjholowaychuk
-[express]:http://expressjs.com
-
-    
+[chef install]:http://www.getchef.com/chef/install/
+[chef server config]:http://docs.opscode.com/config_rb_chef_server.html
+[essentials data bags]:http://docs.opscode.com/essentials_data_bags.html
+[essentials roles]:http://docs.opscode.com/essentials_roles.html
+[essentials environments]:http://docs.opscode.com/essentials_environments.html
+[knife config]:http://docs.opscode.com/config_rb_knife.html
+[knife]:http://docs.opscode.com/knife.html
+[manage auth]:http://docs.opscode.com/chef/manage_server_open_source.html
+[client config]:http://docs.opscode.com/config_rb_client.html.
+[ohai]:http://docs.opscode.com/ohai.html
+[ohai custom]:http://docs.opscode.com/ohai_custom.html
