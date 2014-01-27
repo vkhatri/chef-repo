@@ -71,7 +71,7 @@ Just like server, download the rpm or deb package or just follow typical method 
 
 Once Chef client package is installed, need to create some files and folders to bootstrap the chef client.
 
-** Chef Client Directories**
+**Chef Client Directories**
 
 ```sh
 # Create Chef Client Directories
@@ -88,7 +88,7 @@ mkdir /etc/chef/ohai/hints
 # Once chef-client gets registered with Chef server this file can be removed, a good practice is to remove this file.
 ```
 
-** Chef Client Config file**
+**Chef Client Config file**
 
 ```sh
 # File: /etc/chef/client.rb
