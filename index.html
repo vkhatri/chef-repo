@@ -46,41 +46,43 @@
 <p><strong>Sections ...</strong></p>
 
 <ul>
-<li>Install Chef Server</li>
+<li>Install Chef Server (Open Source)</li>
 <li>Install Chef Client</li>
-<li>Setup Adming User and Knife (Chef Workstation)</li>
+<li>Setup Admin User and Knife (Chef Workstation)</li>
 <li>Chef Environments</li>
 <li>Chef Roles</li>
 <li>Chef Data Bags</li>
-<li>Chef Cookbooks</li>
+<li>Chef Cookbooks / Recipes</li>
 <li>Git Version Controlled - Chef Repositories </li>
-<li>My Environments, Roles, Data Bags and Cookbooks</li>
+<li>Rebuild a Chef Server</li>
+<li>How does my Setup looks like</li>
+<li>References</li>
 </ul><p><strong>Kickstart ..</strong></p>
 
 <p>It took me around two-to-three weeks to understand Chef architecture and start writing cookbooks with multiple environments and couple of application roles.</p>
 
 <p>Coming from puppet background hiera was the first puzzle to figure out in Chef world. And believe me once you understand Chef Environment, Role and Data Bag, it is just matter of time to get this going.</p>
 
-<p>Version Controlling was the only thing that was missing. chef-repo gave quite an idea to split Chef resources into its own git repository. There are number of ways you can manage Chef server Evironment, Role, Data Bags and Cookbooks  via Git. </p>
+<p>Version Controlling was the only thing that was missing. chef-repo gave quite an idea to split Chef resources into its own git repository. There are number of ways you can manage Chef server Environment, Role, Data Bags and Cookbooks via Git. </p>
 
 <p>To keep it simple with a fine access control it seems a good idea to have different git repositories instead of a single chef-repo.  </p>
 
-<p>This could be a turorial for <em>newbie's</em> like <em>me</em> to start with Chef Installation towards Managing different Environments, Application Roles and multi version Cookbooks.</p>
+<p>This could be a tutorial for <em>newbie's</em> like <em>me</em> to start with Chef Installation towards Managing different Environments, Application Roles and multi version Cookbooks.</p>
 
 <h2>
 <a name="install-chef-server-open-source" class="anchor" href="#install-chef-server-open-source"><span class="octicon octicon-link"></span></a>Install Chef Server (Open Source)</h2>
 
-<p>Chef Instllation is as easy it can get, download the rpm or deb package or just follow typical method of bash install by following - <a href="http://www.getchef.com/chef/install/">http://www.getchef.com/chef/install/</a>.</p>
+<p>Chef Installation is as easy it can get, download the rpm or deb package or just follow typical method of bash install by following <a href="http://www.getchef.com/chef/install/">chef install</a>.</p>
 
 <p><strong>Customize Chef Server Details Before Setup</strong></p>
 
 <p>This is something i am yet to explore on next Chef server build.</p>
 
-<p>Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. needs to be specified before Chef server setup or it could be defined after the server setup but it should would affect existing registed clients after generating Chef Server SSL certificate bundle.</p>
+<p>Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. needs to be specified before Chef server setup or it could be defined after the server setup but it should would affect existing registered clients after generating Chef Server SSL certificate bundle.</p>
 
 <p><strong>Running on Amazon</strong></p>
 
-<p>If you are running on amazon platform, you might be prune to runlist error. It may have been fixed by now in which just ignore below section otherwise you need to update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' for a workaround.</p>
+<p>If you are running on amazon platform, you might be prone to runlist error. It may have been fixed by now in which just ignore below section otherwise you need to update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' for a workaround.</p>
 
 <div class="highlight highlight-sh"><pre><span class="c"># diff -u /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.old /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb</span>
 
@@ -99,12 +101,12 @@
 
 <p>Browse https://chef_server_dns and change the default admin password. Create admin client / user for different users if required.</p>
 
-<p>For more information read <a href="http://docs.opscode.com/config_rb_chef_server.html">http://docs.opscode.com/config_rb_chef_server.html</a>.</p>
+<p>For more information read <a href="http://docs.opscode.com/config_rb_chef_server.html">chef server config</a>.</p>
 
 <h2>
 <a name="install-chef-client" class="anchor" href="#install-chef-client"><span class="octicon octicon-link"></span></a>Install Chef Client</h2>
 
-<p>Just like server, download the rpm or deb package or just follow typical method of bash install by following - <a href="http://www.getchef.com/chef/install/">http://www.getchef.com/chef/install/</a>.</p>
+<p>Just like server, download the rpm or deb package or just follow typical method of bash install by following - <a href="http://www.getchef.com/chef/install/">chef install</a>.</p>
 
 <p>Once Chef client package is installed, need to create some files and folders to bootstrap the chef client.</p>
 
@@ -164,7 +166,7 @@ Ohai::Config<span class="o">[</span>:plugin_path<span class="o">]</span> &lt;&lt
 
 </pre></div>
 
-<p>For more information read <a href="http://docs.opscode.com/config_rb_client.html">http://docs.opscode.com/config_rb_client.html</a>.</p>
+<p>For more information read <a href="http://docs.opscode.com/config_rb_client.html.">client config</a>.</p>
 
 <p><strong>Node Custom Attributes or run_list</strong></p>
 
@@ -198,20 +200,20 @@ application <span class="s2">"webserver"</span>
 <div class="highlight highlight-sh"><pre><span class="nb">echo</span> <span class="s1">'{}'</span> &gt; /etc/chef/ohai/hints/ec2.json
 </pre></div>
 
-<p>For more info on Ohai "<a href="http://docs.opscode.com/ohai.html">http://docs.opscode.com/ohai.html</a>".</p>
+<p>For more info on <a href="http://docs.opscode.com/ohai.html">ohai</a>.</p>
 
-<p>For Ohai plugins  "<a href="http://docs.opscode.com/ohai_custom.html">http://docs.opscode.com/ohai_custom.html</a>".</p>
+<p>For Ohai plugins <a href="http://docs.opscode.com/ohai_custom.html">ohai custom</a>.</p>
 
 <h2>
 <a name="setup-admin-user-and-knife-chef-workstation" class="anchor" href="#setup-admin-user-and-knife-chef-workstation"><span class="octicon octicon-link"></span></a>Setup Admin User and Knife (Chef Workstation)</h2>
 
-<p>Knife is a Chef Management Utilit, it has set of api calls and different plugins to manage Chef Server roles, environments, data bags, cookbooks, run list, node and client etc. Basically knife is a single utility proven to be enough to manage the Chef sever. There are some other powerful utilities too like Berkshelf to do the same thing, choice is yours!</p>
+<p>Knife is a Chef Management Utility, it has set of api calls and different plugins to manage Chef Server roles, environments, data bags, cookbooks, run list, node and client etc. Basically knife is a single utility proven to be enough to manage the Chef sever. There are some other powerful utilities too like Berkshelf to do the same thing, choice is yours!</p>
 
-<p>To setup a knife client, create your admin client or user key via Chef Console by following steps in "<a href="http://docs.opscode.com/chef/manage_server_open_source.html">http://docs.opscode.com/chef/manage_server_open_source.html</a>".</p>
+<p>To setup a knife client, create your admin client or user key via Chef Console by following steps in <a href="http://docs.opscode.com/chef/manage_server_open_source.html">manage auth</a>.</p>
 
 <p>Download the private key, this key is required to setup knife client or  Chef Workstation.</p>
 
-<p>For more information on Knife "<a href="http://docs.opscode.com/knife.html">http://docs.opscode.com/knife.html</a>".</p>
+<p>For more information on Knife <a href="http://docs.opscode.com/knife.html">knife</a>.</p>
 
 <p><strong>Knife Setup</strong></p>
 
@@ -240,7 +242,7 @@ cookbook_license         <span class="s1">'apachev2'</span>
 cookbook_email           <span class="s1">'foo@foo.com'</span>
 </pre></div>
 
-<p>For more knife.rb options "<a href="http://docs.opscode.com/config_rb_knife.html">http://docs.opscode.com/config_rb_knife.html</a>".</p>
+<p>For more knife.rb options <a href="http://docs.opscode.com/config_rb_knife.html">knife config</a>.</p>
 
 <p><strong>Test knife client</strong></p>
 
@@ -261,12 +263,12 @@ webserver
 <ul>
 <li>environment is a simple json file or a chef dsl .rb file</li>
 <li>useful to define default or override attributes</li>
-<li>primary usage is to have specific version of cookbook mapped to an environment, as there can be many version of cookbook, you can map a cookbook verion to an environment </li>
+<li>primary usage is to have specific version of cookbook mapped to an environment, as there can be many version of cookbook, you can map a cookbook version to an environment </li>
 <li>chef default environment is _default. Unless an environment is declared in /etc/chef/client.rb or in Chef Console for a node, node by default is configured with _default environment.</li>
 <li>you can create 'n' numbers of environments</li>
-</ul><p>For more information on environment read out "<a href="http://docs.opscode.com/essentials_environments.html">http://docs.opscode.com/essentials_environments.html</a>".</p>
+</ul><p>For more information on environment read out <a href="http://docs.opscode.com/essentials_environments.html">essentials environments</a>.</p>
 
-<p>If you have multiple environments likfe production, stage or qa, it is always better to bootstrap the node with the respective environment instead of _default environment.</p>
+<p>If you have multiple environments like production, stage or qa, it is always better to bootstrap the node with the respective environment instead of _default environment.</p>
 
 <p><strong>How to Create an Environment</strong></p>
 
@@ -295,7 +297,7 @@ webserver
 
 <p>This way you can maintain your environment json file into a git repo. Whenever needs to change push it to git prior to knife chef push. </p>
 
-<p>After making a change to an environment,json file, upload it to Chef using knife:</p>
+<p>After making a change to an environment.json file, upload it to Chef using knife:</p>
 
 <div class="highlight highlight-sh"><pre>knife environment from file environment.json
 </pre></div>
@@ -314,7 +316,7 @@ webserver
 
 <p>If you have different roles with some common attributes and you want to override some of them, use override attribute in environment.json.</p>
 
-<p>When look at the attributes, its just the predecende of default &amp; override attributes that matters with the hierarchy of attribute value. But it could be very complex and easy at the same time if not defined at the right place, something i will have to share in some time.</p>
+<p>When look at the attributes, its just the precedence of default &amp; override attributes that matters with the hierarchy of attribute value. But it could be very complex and easy at the same time if not defined at the right place, something i will have to share in some time.</p>
 
 <p><strong>Where Not to Use Environment JSON attributes</strong></p>
 
@@ -340,7 +342,7 @@ webserver
 <li>a role defined run list for different environment. run_list can be list of other roles or recipes</li>
 <li>it stores attributes required for recipes</li>
 <li>you can have difference run_list for different environment, run_list is default run_list for _default environment.</li>
-</ul><p>For more information on role "<a href="http://docs.opscode.com/essentials_roles.html">http://docs.opscode.com/essentials_roles.html</a>".</p>
+</ul><p>For more information on <a href="http://docs.opscode.com/essentials_roles.html">essentials roles</a>.</p>
 
 <div class="highlight highlight-sh"><pre><span class="c"># cat jump.json</span>
 
@@ -384,7 +386,7 @@ webserver
 
 <p>It is a default role which has all the minimum packages, services, users, file or any other resource which must goes to every node regardless of node environment.</p>
 
-<p>Just adding role[system] to run_lits of other roles we will have our common base setup across the environemnts nodes.</p>
+<p>Just adding role[system] to run_list of other roles we will have our common base setup across the environments nodes.</p>
 
 <p><strong>Create a Role</strong></p>
 
@@ -403,16 +405,16 @@ webserver
 <h2>
 <a name="chef-data-bags" class="anchor" href="#chef-data-bags"><span class="octicon octicon-link"></span></a>Chef Data Bags</h2>
 
-<p>Chef Data Bags are JSON Data Stroes globally available for cookbooks. Data Bag is a immutable data store, primarily useful to store static data information. It also supports encryption to store data bag json file in encrypted format.</p>
+<p>Chef Data Bags are JSON Data Stores globally available for cookbooks. Data Bag is an immutable data store, primarily useful to store static data information. It also supports encryption to store data bag json file in encrypted format.</p>
 
 <p>Data bag can be created as a chef dsl .rb file or a .json file.</p>
 
-<p>For more information read out "<a href="http://docs.opscode.com/essentials_data_bags.html">http://docs.opscode.com/essentials_data_bags.html</a>".</p>
+<p>For more information read out <a href="http://docs.opscode.com/essentials_data_bags.html">essentials data bags</a>.</p>
 
 <h2>
 <a name="chef-cookbooks--recipes" class="anchor" href="#chef-cookbooks--recipes"><span class="octicon octicon-link"></span></a>Chef Cookbooks / Recipes</h2>
 
-<p>Cookbook is collection of recipes, attributes, tempaltes etc. Cookbook is like Chef Ruby module to declare resources.</p>
+<p>Cookbook is collection of recipes, attributes, templates etc. Cookbook is like Chef Ruby module to declare resources.</p>
 
 <p><strong>Create Data Bag</strong></p>
 
@@ -429,34 +431,121 @@ knife data bag create &lt;data bag name&gt; &lt;data bag item&gt;
 <div class="highlight highlight-sh"><pre>knife data bag from file &lt;data bag name&gt; &lt;data bag item&gt;.json
 </pre></div>
 
-<p>Now the data bag is a directory in git repo with different data bag item json files in it.</p>
+<p>Now the data bags are directories in git repo with different data bag item json files in it.</p>
 
 <h2>
 <a name="git-version-controlled---chef-repositories" class="anchor" href="#git-version-controlled---chef-repositories"><span class="octicon octicon-link"></span></a>Git Version Controlled - Chef Repositories</h2>
 
-<p>Git Versioning.</p>
+<p>Version Control is quite a different approach between Puppet and Chef. From my short experience Chef server can only be managed via tools like knife via api calls or via Console.</p>
+
+<p>To version Control different Chef resources we can version Control the resources itself.</p>
+
+<p>I found it very useful to have different repositories for each Chef resource. Like:</p>
+
+<ul>
+<li>chef_data_bags - This repository has all Chef Data Bags and Items files</li>
+<li>chef_roles - This repository consists all the Chef roles json or .rb files</li>
+<li>chef_environments - This repository consists all Chef environments json or .rb files</li>
+<li>
+<p>chef_cookbooks - This repository is categorized into three sub categories. Thanks to <a href="http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/#.UujOp_a6Zcx">Leknarf</a> post which made it easy for me to manage the cookbooks structure.</p>
+
+<ul>
+<li>vendor_cookbooks - Store all public site downloaded cookbooks here</li>
+<li>public_cookbooks - Store In-house written cookbooks here which can be shared via github or opscode or public website, they are like vendor cookbooks but developed in-house</li>
+<li>private_cookbooks - Store all in-house cookbooks here which can not be shared with public</li>
+</ul>
+</li>
+<li>chef_distribution - Stores any static files or small binaries files here</li>
+</ul><p>Now it looks very easy to maintain Git access depending on environment/files using <a href="http://www.linuxforu.com/2011/01/gitolite-specify-complex-access-controls-git-server/">git acl</a>.</p>
+
+<p><strong>Create a New Role</strong></p>
+
+<p>Checkout chef_roles repository:</p>
+
+<div class="highlight highlight-sh"><pre>git clone git@GIT_SERVER:chef_roles
+<span class="nb">cd </span>chef_roles
+ls
+    jenkins.json    jump.json system.json
+</pre></div>
+
+<p>Create New role file using knife or simply copy an existing role:</p>
+
+<div class="highlight highlight-sh"><pre>cp jenkins.json new_role.json
+</pre></div>
+
+<p>Modify the new role id, description, attributes etc.</p>
+
+<div class="highlight highlight-sh"><pre><span class="c"># cat new_role.json</span>
+<span class="o">{</span>
+  <span class="s2">"name"</span>: <span class="s2">"new_role"</span>,
+  <span class="s2">"description"</span>: <span class="s2">"New Role Description"</span>,
+  <span class="s2">"json_class"</span>: <span class="s2">"Chef::Role"</span>,
+  <span class="s2">"default_attributes"</span>: <span class="o">{}</span>,
+  <span class="s2">"override_attributes"</span>: <span class="o">{}</span>,
+  <span class="s2">"chef_type"</span>: <span class="s2">"role"</span>,
+  <span class="s2">"run_list"</span>: <span class="o">[]</span>,
+  <span class="s2">"env_run_lists"</span>: <span class="o">{</span>
+    <span class="s2">"production"</span>: <span class="o">[</span>
+    <span class="o">]</span>,
+    <span class="s2">"development"</span>: <span class="o">[</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>Once created, it is always better to validate JSON syntax using a json parser. This could also be set to default in git pre-hook.</p>
+
+<p>Push the new role to git</p>
+
+<div class="highlight highlight-sh"><pre>git add new_roles.json
+git commit -m <span class="s2">"added new_role"</span>
+git push
+</pre></div>
+
+<p>Upload new_role to Chef using knife</p>
+
+<div class="highlight highlight-sh"><pre>knife role from file new_role.json
+</pre></div>
+
+<p>Now, you can test new role on a node. </p>
+
+<p>In future if someone else need to make a change to new_role, simply checkout chef_roles, make the change, git push and knife upload.</p>
 
 <h2>
-<a name="how-does-my-environment-role-data-bags--cookbooks-looks-like" class="anchor" href="#how-does-my-environment-role-data-bags--cookbooks-looks-like"><span class="octicon octicon-link"></span></a>How does my Environment, Role, Data Bags &amp; Cookbooks looks like?</h2>
+<a name="rebuild-a-chef-server" class="anchor" href="#rebuild-a-chef-server"><span class="octicon octicon-link"></span></a>Rebuild a Chef Server</h2>
 
-<p>Apart from the usual setup, I tried to make everything configurable by JSON attributes. So that updating cookbook is not required to add package/service/user etc. </p>
+<p>Rebuilding a Chef Server steps are similar to steps in "Install Chef Server" section. But the difference is we do not need to re-create all the cookbooks, roles, environments or data bags from scratch. </p>
 
-<p>To achieve this i had to modify some of the global opscode recipes.</p>
+<p>We just need to upload all the resources we have in git repositories to new Chef Server.</p>
 
-<p>This may not sound sane but it really saved us time to add services/packages/users etc. </p>
+<p>There are few components which needs to backup regularly like Chef Server SSL Certificate bundle, Client Signed SSL Certificate Bundles etc. For this purpose one can use individual scripts to take backup of individual components or simple run backup/snapshot of whole Chef Server disk useful for disaster recovery.</p>
+
+<p>There could be other things still remains un-explored for rebuilding a chef server, but it is a good start point to begin with.</p>
+
+<h2>
+<a name="how-does-my-setup-looks-like" class="anchor" href="#how-does-my-setup-looks-like"><span class="octicon octicon-link"></span></a>How does my Setup looks like?</h2>
+
+<p>I will be uploading cookbooks to github chef-repo or individually if can be used standalone shortly.</p>
+
+<p>If you are interested for in my Chef Practice for managing environment, roles, data bags and cookbooks, check out chef-repo.</p>
 
 <h2>
 <a name="references" class="anchor" href="#references"><span class="octicon octicon-link"></span></a>References:</h2>
 
-<p>OpsCode
-Limburge</p>
+<p><a href="https://wiki.opscode.com">https://wiki.opscode.com</a></p>
+
+<p><a href="http://docs.opscode.com/">http://docs.opscode.com/</a></p>
+
+<p><a href="http://www.slideshare.net/opscode">http://www.slideshare.net/opscode</a></p>
+
+<p><a href="http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/#.Us5JZ_a9aT4">http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/#.Us5JZ_a9aT4</a></p>
 
 <h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Apache v2.0</p>
 
-<p><strong>Open Source, Hell Yeah!</strong></p>
+<p><strong>Open Source!</strong></p>
       </section>
 
     </div>
