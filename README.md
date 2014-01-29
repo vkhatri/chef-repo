@@ -1,7 +1,8 @@
 Chef-Repo
 =========
 
-I just recently started with Chef few weeks back and coming from Puppet background i had quite a good amount of Chef experience and learning curve to share.
+I recently started working on Chef few weeks back. Coming from Puppet background it has been a good experience and learning curve. I think my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef.
+
 
 **Sections ...**
 
@@ -25,8 +26,6 @@ Coming from puppet background hiera was the first puzzle to sort out in Chef wor
 
 Version Controlling was the only thing missing. chef-repo gave a good start point to split out Chef resources into different git repositories. There are number of ways you can manage Chef Server via Git, the approach followed in this document is described in section "Git Version Controlled - Chef Repositories". 
 
-
-This could be a tutorial for *newbie's* like *me* to start working with Chef from Installation to Managing different Environments.
 
 > This document is an individual approach of managing 
 > Infrastructure with Chef (Open Source). 
