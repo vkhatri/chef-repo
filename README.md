@@ -20,11 +20,28 @@ I recently started working on Chef few weeks back. Coming from Puppet background
 
 **Kickstart ..**
 
-It took me some time to understand Chef architecture and start writing cookbooks with multiple environments and couple of application roles.
 
-Coming from puppet background hiera was the first puzzle to sort out in Chef world. It is important to spend some time on understanding Chef Environment, Role and Data Bag, before starting with Cookbooks. 
 
-Version Controlling was the only thing missing. chef-repo gave a good start point to split out Chef resources into different git repositories. There are number of ways you can manage Chef Server via Git, the approach followed in this document is described in section "Git Version Controlled - Chef Repositories". 
+If you are new to Configuration Management System, check out below links on Opscode Chef:
+
+> https://wiki.opscode.com/display/chef/Home
+
+> http://docs.opscode.com/
+
+> http://docs.opscode.com/chef_overview.html
+
+
+The documentation is vast and some times it is gets very tricky to choose a best way of doing things with Chef. Chef supports pure Ruby, which means you can write your own code in Chef DSL.
+
+There are multiple ways of doing a single thing, you can simply put everything in a cookbook using simple ruby program or you could take the benefits of roles/environments/data bags etc to write a cookbook. And if you want to get serious about creating cookbooks, check out [Custom LWRP] or [Custom Ruby LWRP]. 
+
+Its very easy to build Chef resources without following proper standards or thorough thinging, i have had the experience previously and it is not easy to get it right. Before you know it it gets out of hand and you will be stuck with the things as they are.
+
+Laying out Chef Environment, Role and Data Bag data attributes properly is very essential to write cookbooks in such a way that future addon or resource addition will easy & could be handled without modifying cookbooks. It might not be true to every scenario but it sure does help to simple problems like installing packages etc. 
+
+If you are coming from puppet background, hiera is the first puzzle to sort out in Chef world. You can achieve it at many levels, we will discuss how to do it sanely. 
+
+Version Controlling is another important piece when it comes to any Configuration Management System. It is what decides how fast system can recover from disaster or reverted back to last known good state. chef-repo gave a good start point towards version control. Splitting out Chef resources into different git repositories provides even more granular control. There are number of ways you can manage Chef Server via Git, the approach followed in this document is described in section "Git Version Controlled - Chef Repositories". 
 
 
 > This document is an individual approach of managing 
@@ -565,4 +582,5 @@ Apache v2.0
 [git acl]:http://www.linuxforu.com/2011/01/gitolite-specify-complex-access-controls-git-server/
 [Chef Wiki]:https://wiki.opscode.com/
 [Chef Docs]:http://docs.opscode.com/
-
+[Custom LWRP]:http://docs.opscode.com/lwrp_custom_resource.html
+[Custom Ruby LWRP]:http://docs.opscode.com/lwrp_custom_provider_ruby.html
