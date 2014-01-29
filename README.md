@@ -31,15 +31,15 @@ If you are new to Configuration Management System, check out below links on Opsc
 > http://docs.opscode.com/chef_overview.html
 
 
-The documentation is vast and some times it is gets very tricky to choose a best way of doing things with Chef. Chef supports pure Ruby, which means you can write your own code in Chef DSL.
+Chef documentation is very vast and some times it gets very tricky to choose a best way of doing things. Chef supports pure Ruby implementation, which means you can write your own code within Chef DSL.
 
-There are multiple ways of doing a single thing, you can simply put everything in a cookbook using simple ruby program or you could take the benefits of roles/environments/data bags etc to write a cookbook. And if you want to get serious about creating cookbooks, check out [Custom LWRP] or [Custom Ruby LWRP]. 
+There are multiple ways of doing a single thing, you can simply put everything in a cookbook using simple ruby program or you could take the benefits of roles/environments/data bags etc to write a cookbook. And if you want to get serious about creating a standard cookbook, check out [Custom LWRP] or [Custom Ruby LWRP]. 
 
-Its very easy to build Chef resources without following proper standards or thorough thinging, i have had the experience previously and it is not easy to get it right. Before you know it it gets out of hand and you will be stuck with the things as they are.
+Its very easy to build Chef resources without following proper standards or enough thinking, i have had this experience in past and it is not easy to go back & set things right. Before you know, it gets out of hands and you have no choice but keep going with the things as they are.
 
-Laying out Chef Environment, Role and Data Bag data attributes properly is very essential to write cookbooks in such a way that future addon or resource addition will easy & could be handled without modifying cookbooks. It might not be true to every scenario but it sure does help to simple problems like installing packages etc. 
+Laying out Chef Environment, Role and Data Bag data attributes properly is very essential to write a proper cookbook in such a way that future addon or resource addition will be easy & could be handled with minimal effort of changing cookbook. It might not be true to every scenario but it sure does help to cover requirements like handling packages management etc. 
 
-If you are coming from puppet background, hiera is the first puzzle to sort out in Chef world. You can achieve it at many levels, we will discuss how to do it sanely. 
+If you are coming from puppet background, hiera is the first puzzle to sort out in Chef world. You can achieve it at many levels and many ways. 
 
 Version Controlling is another important piece when it comes to any Configuration Management System. It is what decides how fast system can recover from disaster or reverted back to last known good state. chef-repo gave a good start point towards version control. Splitting out Chef resources into different git repositories provides even more granular control. There are number of ways you can manage Chef Server via Git, the approach followed in this document is described in section "Git Version Controlled - Chef Repositories". 
 
