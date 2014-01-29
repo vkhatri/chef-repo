@@ -1,7 +1,7 @@
 Chef-Repo
 =========
 
-I just recently started with Chef few weeks back and coming from Puppet background i had quite a good amount of Chef experience and learning curve, which i wanted to share with you folks.
+I just recently started with Chef few weeks back and coming from Puppet background i had quite a good amount of Chef experience and learning curve to share.
 
 **Sections ...**
 
@@ -20,33 +20,36 @@ I just recently started with Chef few weeks back and coming from Puppet backgrou
 
 **Kickstart ..**
 
-It took me around two-to-three weeks to understand Chef architecture and start writing cookbooks with multiple environments and couple of application roles.
+It took me some time to understand Chef architecture and start writing cookbooks with multiple environments and couple of application roles.
 
-Coming from puppet background hiera was the first puzzle to figure out in Chef world. And believe me once you understand Chef Environment, Role and Data Bag, it is just matter of time to get this going.
+Coming from puppet background hiera was the first puzzle to sort out in Chef world. It is important to spend some time on understanding Chef Environment, Role and Data Bag, before starting with Cookbooks. 
 
-Version Controlling was the only thing that was missing. chef-repo gave quite an idea to split Chef resources into its own git repository. There are number of ways you can manage Chef server Environment, Role, Data Bags and Cookbooks via Git. 
-
-To keep it simple with a fine access control it seems a good idea to have different git repositories instead of a single chef-repo.  
+Version Controlling was the only thing missing. chef-repo gave a good start point to split out Chef resources into different git repositories. There are number of ways you can manage Chef Server via Git, the approach followed in this document is described in section "Git Version Controlled - Chef Repositories". 
 
 
-This could be a tutorial for *newbie's* like *me* to start with Chef Installation towards Managing different Environments, Application Roles and multi version Cookbooks.
+This could be a tutorial for *newbie's* like *me* to start working with Chef from Installation to Managing different Environments.
+
+> This document is an individual approach of managing 
+> Infrastructure with Chef (Open Source). 
+> For Chef complete tutorial and guidelines 
+> follow [Chef Wiki] and [Chef Docs]
 
 
 Install Chef Server (Open Source)
 -----------
 
-Chef Installation is as easy it can get, download the rpm or deb package or just follow typical method of bash install by following [chef install].
+Chef Installation is as easy as it can get. Download the Chef server package or follow bash install method by following [chef install].
 
 **Customize Chef Server Details Before Setup**
 
-This is something i am yet to explore on next Chef server build.
+This is something i have yet to explore on next Chef server build.
 
-Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. needs to be specified before Chef server setup or it could be defined after the server setup but it should would affect existing registered clients after generating Chef Server SSL certificate bundle.
+Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. are to setup according to infrastructure before Chef server setup. It could be possible to change it after the server setup but it could would affect existing clients.
 
 
 **Running on Amazon**
 
-If you are running on amazon platform, you might be prone to runlist error. It may have been fixed by now in which just ignore below section otherwise you need to update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' for a workaround.
+If you are running on amazon platform, you might be prone to runlist error. It may have been fixed by now in latest releases in which case just ignore below section otherwise update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' as a workaround.
 
 ```sh
 # diff -u /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.old /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb
@@ -63,16 +66,16 @@ If you are running on amazon platform, you might be prone to runlist error. It m
    include_recipe "runit::sysvinit"
  end
 ```
-Browse https://chef_server_dns and change the default admin password. Create admin client / user for different users if required.
+Browse https://chef_server_dns and change the default admin password. Create admin client / user for different users to setup Chef Workstation.
 
 For more information read [chef server config].
 
 Install Chef Client
 --------------
 
-Just like server, download the rpm or deb package or just follow typical method of bash install by following - [chef install].
+Just like server, download Chef Client package or follow typical method of bash install by following - [chef install].
 
-Once Chef client package is installed, need to create some files and folders to bootstrap the chef client.
+Once Chef client package is installed, setup below files to bootstrap Chef client.
 
 **Chef Client Directories**
 
@@ -87,15 +90,20 @@ mkdir /etc/chef/ohai/hints
 
 ```sh
 # File: /etc/chef/chef-validator.pem
-# Copy the content of chef-validator.pem file content from server
-# Once chef-client gets registered with Chef server this file can be removed, a good practice is to remove this file.
+# Copy the content of chef-validator.pem file
+# content from server. Once chef-client 
+# gets registered with Chef server this file is
+# no longer required and must be removed.
 ```
 
 **Chef Client Config file**
 
 ```sh
 # File: /etc/chef/client.rb
-# Create Chef Client Config file, below is the minimal configuration to kick start the client. You can modify it according to your requirement
+# Create Chef Client Config file, below is 
+# the minimal configuration to kick start 
+# the client. You can modify it according
+# to your requirement
 
 
 # Server Configuration
@@ -137,9 +145,11 @@ For more information read [client config].
 
 **Node Custom Attributes or run_list**
 
-Node *run_list* and *custom attributes* like application or cluster_name etc. node specific attributes can be defined in "/etc/chef/client-config.json" file. 
+Node *run_list* or *client attributes* can be defined in "/etc/chef/client-config.json" file. 
 
-Note that these variables will override any other variable defined in Cookbooks or Role. You also could use knife or Chef Console to assign roles/recipes to a node.
+Note that these variables will override any other variable defined in Cookbooks or Role, useful for first boot.
+
+Ideally use knife or Chef Console to assign roles/recipes to a node.
 
 ```sh
 # cat /etc/chef/client-config.json
@@ -156,7 +166,14 @@ Note that these variables will override any other variable defined in Cookbooks 
 }
 ```
 
-You can also defined node attributes via Ohai by creating your own Ohai Plugins. Ohai plugin us ruby code which can have any customized custom to fetch and declare attributes according to an environment. e.g. "Ohai::Config[:plugin_path] << '/etc/chef/ohai/plugins'" in "/etc/chef/client.rb" will tell Ohai to include plugins from location '/etc/chef/ohai/plugins'.
+You can also define node attributes via Ohai by creating your own Ohai Plugins. 
+
+Ohai plugins are ruby code where you can put your logic to create custom node attributes according to your environment.
+
+e.g. File "/etc/chef/client.rb" has an entry:
+"Ohai::Config[:plugin_path] << '/etc/chef/ohai/plugins'" 
+
+which tell Ohai to include plugins from location '/etc/chef/ohai/plugins' on Chef client run.
 
 ```sh
 # cat /etc/chef/ohai/plugins/application.rb
@@ -164,13 +181,13 @@ provides "application"
 application "webserver"
 ```
 
-If you are running on Amazon platform, ec2 hint is to be created to load Ohai ec2 metadata plugin.
+If you are running on Amazon platform, ec2 hint is must be present to load Ohai ec2 metadata.
 
 ```sh
 echo '{}' > /etc/chef/ohai/hints/ec2.json
 ```
 
-For more info on [ohai].
+For more info read [ohai].
 
 For Ohai plugins [ohai custom].
 
@@ -178,13 +195,13 @@ For Ohai plugins [ohai custom].
 
 Setup Admin User and Knife (Chef Workstation)
 ---
-Knife is a Chef Management Utility, it has set of api calls and different plugins to manage Chef Server roles, environments, data bags, cookbooks, run list, node and client etc. Basically knife is a single utility proven to be enough to manage the Chef sever. There are some other powerful utilities too like Berkshelf to do the same thing, choice is yours!
 
-To setup a knife client, create your admin client or user key via Chef Console by following steps in [manage auth].
+Knife is a Chef Management Utility. It is a set of Chef API calls and plugins to manage Chef Server. Knife can manage Chef roles, environments, data bags, cookbooks, run list, nodes and clients etc. There are some other powerful utilities available to perform same work like Berkshelf etc.
 
-Download the private key, this key is required to setup knife client or  Chef Workstation.
+To setup a Knife Client or Workstation, user require client or user private key with admin privilege. It can be created from  Chef Console by following web document [manage auth].
 
-For more information on Knife [knife].
+
+For more information on Knife refer to [knife].
 
 **Knife Setup**
 
@@ -236,18 +253,18 @@ Chef Environments
 Environment concept in Chef is very simple:
 
 - environment is a simple json file or a chef dsl .rb file
-- useful to define default or override attributes
-- primary usage is to have specific version of cookbook mapped to an environment, as there can be many version of cookbook, you can map a cookbook version to an environment 
+- useful to define default or override attributes global to roles or specific to an attribute
+- primary use of an environment is to define cookbooks version, Chef can have more than one version of cookbooks, you can map a cookbook version to an environment 
 - chef default environment is _default. Unless an environment is declared in /etc/chef/client.rb or in Chef Console for a node, node by default is configured with _default environment.
 - you can create 'n' numbers of environments
 
-For more information on environment read out [essentials environments].
+For more information on environment read [essentials environments].
 
 If you have multiple environments like production, stage or qa, it is always better to bootstrap the node with the respective environment instead of _default environment.
 
 **How to Create an Environment**
 
-Creating an environment is easy by using knife:
+Creating an environment using knife:
 
 ```sh
 # knife environment create production
@@ -269,11 +286,11 @@ Creating an environment is easy by using knife:
 }
 ```
 
-Create an environment.json file for the first time using knife command and later you can modify it locally without using knife or use it to create more environments. 
+This will open up editor with default attributes. For git version controlled or to edit it manually store the content into environment.json file. Later you can modify it locally without using knife or use it to create more environments. 
 
-This way you can maintain your environment json file into a git repo. Whenever needs to change push it to git prior to knife chef push. 
+Better approach is to store environment.json file into a git repo. 
 
-After making a change to an environment.json file, upload it to Chef using knife:
+Whenever making any changes to environment.json file, commit it to git prior to Chef upload using knife.
 
 ```sh
 knife environment from file environment.json
@@ -513,11 +530,11 @@ If you are interested for in my Chef Practice for managing environment, roles, d
 References:
 ---
 
-https://wiki.opscode.com
+https://wiki.opscode.com/
 
 http://docs.opscode.com/
 
-http://www.slideshare.net/opscode
+http://www.slideshare.net/opscode/
 
 http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/#.Us5JZ_a9aT4
 
@@ -543,5 +560,6 @@ Apache v2.0
 [ohai custom]:http://docs.opscode.com/ohai_custom.html
 [Leknarf]:http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/#.UujOp_a6Zcx
 [git acl]:http://www.linuxforu.com/2011/01/gitolite-specify-complex-access-controls-git-server/
-
+[Chef Wiki]:https://wiki.opscode.com/
+[Chef Docs]:http://docs.opscode.com/
 
