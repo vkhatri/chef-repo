@@ -14,7 +14,6 @@ I just recently started with Chef few weeks back and coming from Puppet backgrou
   - Chef Cookbooks / Recipes
   - Git Version Controlled - Chef Repositories 
   - Rebuild a Chef Server
-  - How does my Setup looks like
   - References
 
 
@@ -529,14 +528,6 @@ But the difference in rebuilding an existing server or adding more Chef servers 
 There are few components which needs to backup regularly like Chef Server SSL Certificate bundle, Client Signed SSL Certificate Bundles etc. For this purpose one can use individual scripts to take backup of individual components or simple run backup/snapshot of whole Chef Server disk useful for disaster recovery.
 
 There could be other things still remains un-explored for rebuilding a chef server, but it is a good start point to begin with.
-
-
-How does my Setup looks like?
----
-
-Shortly i will be uploading cookbooks to github chef-repo or individually if can be used standalone.
-
-If you are interested check out environments, roles, data_bags and cookbooks in this repository.
 
 
 References:
