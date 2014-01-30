@@ -42,7 +42,7 @@
         <h1>
 <a name="chef-repo" class="anchor" href="#chef-repo"><span class="octicon octicon-link"></span></a>Chef-Repo</h1>
 
-<p>I recently started working on Chef few weeks back. Coming from Puppet background it has been a good experience and learning curve. I think my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef.</p>
+<p>I recently started working on Chef few weeks back. Coming from Puppet background it has been a good experience and learning curve. I think by putting this document together, my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef.</p>
 
 <p><strong>Sections ...</strong></p>
 
@@ -83,9 +83,9 @@
 
 <blockquote>
 <p>This document is an individual approach of managing 
-Infrastructure with Chef (Open Source). 
-For Chef complete tutorial and guidelines 
-follow <a href="https://wiki.opscode.com/">Chef Wiki</a> and <a href="http://docs.opscode.com/">Chef Docs</a></p>
+Infrastructure using Opscode Chef (Open Source). 
+For Chef complete documentation and reference 
+check out <a href="https://wiki.opscode.com/">Chef Wiki</a> and <a href="http://docs.opscode.com/">Chef Docs</a>.</p>
 </blockquote>
 
 <h2>
@@ -95,13 +95,13 @@ follow <a href="https://wiki.opscode.com/">Chef Wiki</a> and <a href="http://doc
 
 <p><strong>Customize Chef Server Details Before Setup</strong></p>
 
-<p>This is something i have yet to explore on next Chef server build.</p>
+<p>This is something i have not explored yet, may be on next Chef server build.</p>
 
 <p>Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. are to setup according to infrastructure before Chef server setup. It could be possible to change it after the server setup but it could would affect existing clients.</p>
 
 <p><strong>Running on Amazon</strong></p>
 
-<p>If you are running on amazon platform, you might be prone to runlist error. It may have been fixed by now in latest releases in which case just ignore below section otherwise update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' as a workaround.</p>
+<p>If you are running on amazon platform, you might be prone to runlist error. It might have been fixed by now in later Chef server releases in which case just ignore below section otherwise update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' as a workaround.</p>
 
 <div class="highlight highlight-sh"><pre><span class="c"># diff -u /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.old /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb</span>
 
@@ -118,16 +118,16 @@ follow <a href="https://wiki.opscode.com/">Chef Wiki</a> and <a href="http://doc
  end
 </pre></div>
 
-<p>Browse https://chef_server_dns and change the default admin password. Create admin client / user for different users to setup Chef Workstation.</p>
+<p>Browse https://chef_server_dns and change the default admin password. Create admin client/user for different users to setup Chef Workstation.</p>
 
 <p>For more information read <a href="http://docs.opscode.com/config_rb_chef_server.html">chef server config</a>.</p>
 
 <h2>
 <a name="install-chef-client" class="anchor" href="#install-chef-client"><span class="octicon octicon-link"></span></a>Install Chef Client</h2>
 
-<p>Just like server, download Chef Client package or follow typical method of bash install by following - <a href="http://www.getchef.com/chef/install/">chef install</a>.</p>
+<p>Just like server, download Chef Client package or follow typical method of bash install by following <a href="http://www.getchef.com/chef/install/">chef install</a>.</p>
 
-<p>Once Chef client package is installed, setup below files to bootstrap Chef client.</p>
+<p>Once Chef client package is installed, create below files to bootstrap Chef client.</p>
 
 <p><strong>Chef Client Directories</strong></p>
 
@@ -228,7 +228,7 @@ provides <span class="s2">"application"</span>
 application <span class="s2">"webserver"</span>
 </pre></div>
 
-<p>If you are running on Amazon platform, ec2 hint is must be present to load Ohai ec2 metadata.</p>
+<p>If you are running on Amazon platform, ec2 hint must be present to load Ohai ec2 metadata.</p>
 
 <div class="highlight highlight-sh"><pre><span class="nb">echo</span> <span class="s1">'{}'</span> &gt; /etc/chef/ohai/hints/ec2.json
 </pre></div>
