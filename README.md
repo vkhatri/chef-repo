@@ -1,7 +1,7 @@
 Chef-Repo
 =========
 
-I recently started working on Chef few weeks back. Coming from Puppet background it has been a good experience and learning curve. I think my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef.
+I recently started working on Chef few weeks back. Coming from Puppet background it has been a good experience and learning curve. I think by putting this document together, my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef.
 
 
 **Sections ...**
@@ -45,9 +45,9 @@ Version Controlling is another important piece when it comes to any Configuratio
 
 
 > This document is an individual approach of managing 
-> Infrastructure with Chef (Open Source). 
-> For Chef complete tutorial and guidelines 
-> follow [Chef Wiki] and [Chef Docs]
+> Infrastructure using Opscode Chef (Open Source). 
+> For Chef complete documentation and reference 
+> check out [Chef Wiki] and [Chef Docs].
 
 
 Install Chef Server (Open Source)
@@ -57,14 +57,14 @@ Chef Installation is as easy as it can get. Download the Chef server package or 
 
 **Customize Chef Server Details Before Setup**
 
-This is something i have yet to explore on next Chef server build.
+This is something i have not explored yet, may be on next Chef server build.
 
 Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. are to setup according to infrastructure before Chef server setup. It could be possible to change it after the server setup but it could would affect existing clients.
 
 
 **Running on Amazon**
 
-If you are running on amazon platform, you might be prone to runlist error. It may have been fixed by now in latest releases in which case just ignore below section otherwise update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' as a workaround.
+If you are running on amazon platform, you might be prone to runlist error. It might have been fixed by now in later Chef server releases in which case just ignore below section otherwise update file '/opt/chef-server/embedded/cookbooks/runit/recipes/default.rb' as a workaround.
 
 ```sh
 # diff -u /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb.old /opt/chef-server/embedded/cookbooks/runit/recipes/default.rb
@@ -81,16 +81,16 @@ If you are running on amazon platform, you might be prone to runlist error. It m
    include_recipe "runit::sysvinit"
  end
 ```
-Browse https://chef_server_dns and change the default admin password. Create admin client / user for different users to setup Chef Workstation.
+Browse https://chef_server_dns and change the default admin password. Create admin client/user for different users to setup Chef Workstation.
 
 For more information read [chef server config].
 
 Install Chef Client
 --------------
 
-Just like server, download Chef Client package or follow typical method of bash install by following - [chef install].
+Just like server, download Chef Client package or follow typical method of bash install by following [chef install].
 
-Once Chef client package is installed, setup below files to bootstrap Chef client.
+Once Chef client package is installed, create below files to bootstrap Chef client.
 
 **Chef Client Directories**
 
@@ -196,7 +196,7 @@ provides "application"
 application "webserver"
 ```
 
-If you are running on Amazon platform, ec2 hint is must be present to load Ohai ec2 metadata.
+If you are running on Amazon platform, ec2 hint must be present to load Ohai ec2 metadata.
 
 ```sh
 echo '{}' > /etc/chef/ohai/hints/ec2.json
