@@ -185,12 +185,17 @@ group nil
 verbose_logging <span class="nb">false</span>
 log_level :info
 log_location STDOUT
+<span class="c"># To Forward logs to a file:</span>
+<span class="c"># log_location '/var/log/chef/chef-client.rb'</span>
 
 Ohai::Config<span class="o">[</span>:plugin_path<span class="o">]</span> &lt;&lt; <span class="s1">'/etc/chef/ohai/plugins'</span>
 
+Dir.glob<span class="o">(</span>File.join<span class="o">(</span><span class="s2">"/etc/chef"</span>, <span class="s2">"client.d"</span>, <span class="s2">"*.rb"</span><span class="o">))</span>.each <span class="k">do</span> <span class="p">|</span>conf<span class="p">|</span>
+  Chef::Config.from_file<span class="o">(</span>conf<span class="o">)</span>
+end
 </pre></div>
 
-<p>For more information read <a href="http://docs.opscode.com/config_rb_client.html.">client config</a>.</p>
+<p>For more information read <a href="http://docs.opscode.com/config_rb_client.html.">client config</a> or checkout <a href="https://github.com/opscode-cookbooks/chef-client">chef-client</a> cookbook.</p>
 
 <p><strong>Node Custom Attributes or run_list</strong></p>
 
