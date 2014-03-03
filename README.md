@@ -151,12 +151,17 @@ group nil
 verbose_logging false
 log_level :info
 log_location STDOUT
+# To Forward logs to a file:
+# log_location '/var/log/chef/chef-client.rb'
 
 Ohai::Config[:plugin_path] << '/etc/chef/ohai/plugins'
 
+Dir.glob(File.join("/etc/chef", "client.d", "*.rb")).each do |conf|
+  Chef::Config.from_file(conf)
+end
 ```
 
-For more information read [client config].
+For more information read [client config] or checkout [chef-client] cookbook.
 
 **Node Custom Attributes or run_list**
 
@@ -584,3 +589,4 @@ Apache v2.0
 [Chef Docs]:http://docs.opscode.com/
 [Custom LWRP]:http://docs.opscode.com/lwrp_custom_resource.html
 [Custom Ruby LWRP]:http://docs.opscode.com/lwrp_custom_provider_ruby.html
+[chef-client]:https://github.com/opscode-cookbooks/chef-client
