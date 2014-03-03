@@ -1,7 +1,7 @@
 Chef-Repo
 =========
 
-I recently started working on Chef few weeks back. Coming from Puppet background it has been a good experience and learning curve. I think by putting this document together, my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef.
+I has been some time i started working on Opscode Chef. Coming from Puppet background it has been a good experience and learning curve. I think by putting this document together, my little experience could be useful to a newbie like me to start Managing infrastructure using Opscode Chef OSS.
 
 
 **Sections ...**
