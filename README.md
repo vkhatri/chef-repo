@@ -55,6 +55,25 @@ Install Chef Server (Open Source)
 
 Chef Installation is as easy as it can get. Download the Chef server package or follow bash install method by following [chef install].
 
+To apply internal SSL Certificates or to Change SSL Certificate / Chef Server FQDN, Create/Modify `/etc/chef-server/chef-server.rb`
+
+```sh
+
+# /etc/chef-server/chef-server.rb
+
+api_fqdn "CHEF_SERVER_FQDN"
+nginx['server_name']        = "CHEF_SERVER_FQDN"
+nginx['ssl_certificate']        = "/etc/chef-server/CHEF_SERVER_FQDN.crt"
+nginx['ssl_certificate_key']    = "/etc/chef-server/CHEF_SERVER_FQDN.key"
+nginx['ssl_company_name']   =   'COMPANY'
+nginx['ssl_country_name']   = 'COUNTRY'
+nginx['ssl_email_address']  =   'mail@mydomain.in'
+nginx['ssl_locality_name']  = 'CITY'
+nginx['ssl_organizational_unit_name']    = 'ORGANIZATION'
+#nginx['ssl_port']   = SSL_PORT # Default 443
+nginx['ssl_state_name'] = 'STATE'
+```
+
 **Customize Chef Server Details Before Setup**
 
 This is something i have not explored yet, may be on next Chef server build.
