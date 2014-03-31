@@ -91,13 +91,50 @@ check out <a href="https://wiki.opscode.com/">Chef Wiki</a> and <a href="http://
 <h2>
 <a name="install-chef-server-open-source" class="anchor" href="#install-chef-server-open-source"><span class="octicon octicon-link"></span></a>Install Chef Server (Open Source)</h2>
 
-<p>Chef Installation is as easy as it can get. Download the Chef server package or follow bash install method by following <a href="http://www.getchef.com/chef/install/">chef install</a>.</p>
+<p>Chef Installation is very simple, just download the Chef server package or follow bash install method by following <a href="http://www.getchef.com/chef/install/">chef install</a>.</p>
 
-<p><strong>Customize Chef Server Details Before Setup</strong></p>
+<div class="highlight highlight-sh"><pre>e.g. On RHEL bsed platform
+<span class="c"># Download Package</span>
+  wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.8.2-1.el6.x86_64.rpm 
 
-<p>This is something i have not explored yet, may be on next Chef server build.</p>
+<span class="c"># Install Chef Server Package</span>
+  rpm -ivh chef-11.8.2-1.el6.x86_64.rpm
 
-<p>Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. are to setup according to infrastructure before Chef server setup. It could be possible to change it after the server setup but it could would affect existing clients.</p>
+<span class="c"># Create/Modify Chef Server configuration file as per requirement</span>
+  vim /etc/chef-server/chef-server.rb
+
+<span class="c"># Configure Chef Server</span>
+  chef-server-ctl reconfigure
+</pre></div>
+
+<p><strong>How to Change Chef Server FQDN or SSL Certificate</strong></p>
+
+<p>To apply internal SSL Certificates or to Change SSL Certificate / Chef Server FQDN, first modify <code>/etc/chef-server/chef-server.rb</code>:</p>
+
+<div class="highlight highlight-sh"><pre>  /etc/chef-server/chef-server.rb
+
+api_fqdn <span class="s2">"CHEF_SERVER_FQDN"</span>
+nginx<span class="o">[</span><span class="s1">'server_name'</span><span class="o">]</span>        <span class="o">=</span> <span class="s2">"CHEF_SERVER_FQDN"</span>
+nginx<span class="o">[</span><span class="s1">'ssl_certificate'</span><span class="o">]</span>        <span class="o">=</span> <span class="s2">"/etc/chef-server/CHEF_SERVER_FQDN.crt"</span>
+nginx<span class="o">[</span><span class="s1">'ssl_certificate_key'</span><span class="o">]</span>    <span class="o">=</span> <span class="s2">"/etc/chef-server/CHEF_SERVER_FQDN.key"</span>
+nginx<span class="o">[</span><span class="s1">'ssl_company_name'</span><span class="o">]</span>   <span class="o">=</span>   <span class="s1">'COMPANY'</span>
+nginx<span class="o">[</span><span class="s1">'ssl_country_name'</span><span class="o">]</span>   <span class="o">=</span> <span class="s1">'COUNTRY'</span>
+nginx<span class="o">[</span><span class="s1">'ssl_email_address'</span><span class="o">]</span>  <span class="o">=</span>   <span class="s1">'mail@mydomain.in'</span>
+nginx<span class="o">[</span><span class="s1">'ssl_locality_name'</span><span class="o">]</span>  <span class="o">=</span> <span class="s1">'CITY'</span>
+nginx<span class="o">[</span><span class="s1">'ssl_organizational_unit_name'</span><span class="o">]</span>    <span class="o">=</span> <span class="s1">'ORGANIZATION'</span>
+<span class="c">#nginx['ssl_port']   = SSL_PORT # Default 443</span>
+nginx<span class="o">[</span><span class="s1">'ssl_state_name'</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'STATE'</span>
+</pre></div>
+
+<p>Reconfigure Chef Server by executing:</p>
+
+<div class="highlight highlight-sh"><pre>  chef-server-ctl reconfigure
+</pre></div>
+
+<p>Do not forget to run test after making any change to Chef Server:</p>
+
+<div class="highlight highlight-sh"><pre>  chef-server-ctl <span class="nb">test</span>
+</pre></div>
 
 <p><strong>Running on Amazon</strong></p>
 
