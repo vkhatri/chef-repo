@@ -58,16 +58,16 @@ Chef Installation is very simple, just download the Chef server package or follo
 ```sh
 e.g. On RHEL bsed platform
 # Download Package
-# wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.8.2-1.el6.x86_64.rpm 
+  wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.8.2-1.el6.x86_64.rpm 
 
 # Install Chef Server Package
-# rpm -ivh chef-11.8.2-1.el6.x86_64.rpm
+  rpm -ivh chef-11.8.2-1.el6.x86_64.rpm
 
 # Create/Modify Chef Server configuration file as per requirement
-# vim /etc/chef-server/chef-server.rb
+  vim /etc/chef-server/chef-server.rb
 
 # Configure Chef Server
-# chef-server-ctl reconfigure
+  chef-server-ctl reconfigure
 ```
 
 **How to Change Chef Server FQDN or SSL Certificate**
@@ -75,7 +75,7 @@ e.g. On RHEL bsed platform
 To apply internal SSL Certificates or to Change SSL Certificate / Chef Server FQDN, first modify `/etc/chef-server/chef-server.rb`:
 
 ```sh
-# /etc/chef-server/chef-server.rb
+  /etc/chef-server/chef-server.rb
 
 api_fqdn "CHEF_SERVER_FQDN"
 nginx['server_name']        = "CHEF_SERVER_FQDN"
@@ -93,21 +93,14 @@ nginx['ssl_state_name'] = 'STATE'
 Reconfigure Chef Server by executing:
 
 ```sh
-# chef-server-ctl reconfigure
+  chef-server-ctl reconfigure
 ```
 
 Do not forget to run test after making any change to Chef Server:
 
 ```sh
-# chef-server-ctl test
+  chef-server-ctl test
 ```
-
-**Customize Chef Server Details Before Setup**
-
-This is something i have not explored yet, may be on next Chef server build.
-
-Details like the Chef server name, using wild card or multiple server alias certificate, domain name etc. are to setup according to infrastructure before Chef server setup. It could be possible to change it after the server setup but it could would affect existing clients.
-
 
 **Running on Amazon**
 
