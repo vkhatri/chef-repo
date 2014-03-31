@@ -53,12 +53,28 @@ Version Controlling is another important piece when it comes to any Configuratio
 Install Chef Server (Open Source)
 -----------
 
-Chef Installation is as easy as it can get. Download the Chef server package or follow bash install method by following [chef install].
-
-To apply internal SSL Certificates or to Change SSL Certificate / Chef Server FQDN, Create/Modify `/etc/chef-server/chef-server.rb`
+Chef Installation is very simple, just download the Chef server package or follow bash install method by following [chef install].
 
 ```sh
+e.g. On RHEL bsed platform
+# Download Package
+# wget https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.8.2-1.el6.x86_64.rpm 
 
+# Install Chef Server Package
+# rpm -ivh chef-11.8.2-1.el6.x86_64.rpm
+
+# Create/Modify Chef Server configuration file as per requirement
+# vim /etc/chef-server/chef-server.rb
+
+# Configure Chef Server
+# chef-server-ctl reconfigure
+```
+
+**How to Change Chef Server FQDN or SSL Certificate**
+
+To apply internal SSL Certificates or to Change SSL Certificate / Chef Server FQDN, first modify `/etc/chef-server/chef-server.rb`:
+
+```sh
 # /etc/chef-server/chef-server.rb
 
 api_fqdn "CHEF_SERVER_FQDN"
@@ -72,6 +88,18 @@ nginx['ssl_locality_name']  = 'CITY'
 nginx['ssl_organizational_unit_name']    = 'ORGANIZATION'
 #nginx['ssl_port']   = SSL_PORT # Default 443
 nginx['ssl_state_name'] = 'STATE'
+```
+
+Reconfigure Chef Server by executing:
+
+```sh
+# chef-server-ctl reconfigure
+```
+
+Do not forget to run test after making any change to Chef Server:
+
+```sh
+# chef-server-ctl test
 ```
 
 **Customize Chef Server Details Before Setup**
